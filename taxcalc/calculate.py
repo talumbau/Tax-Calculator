@@ -37,6 +37,10 @@ def calculator(params, records, mods="", **kwargs):
     final_mods = toolz.merge_with(toolz.merge, update_mods,
                                   {params.current_year: kwargs})
 
+    #Get rid of any empty dictionaries resulting from the merge:
+    final_mods = dict(filter(lambda x: len(x[1]) > 0,
+                      ((k,v) for k, v in final_mods.items())))
+
     if not all(isinstance(yr, int) for yr in final_mods):
         raise ValueError("All keys in mods must be years")
     if final_mods:

@@ -170,6 +170,7 @@ class Parameters(object):
         required by the private _update method, whose documentation
         provides several MODS dictionary examples.
         """
+        tmp_year = self.current_year
         if self.current_year != self.start_year:
             self.set_year(self.start_year)
         if not reform:
@@ -183,7 +184,8 @@ class Parameters(object):
             if year != self.start_year:
                 self.set_year(year)
             self._update({year: reform[year]})
-        self.set_year(self.start_year)
+        #Restore year
+        self.set_year(tmp_year)
 
     @property
     def current_year(self):
